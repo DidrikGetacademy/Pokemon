@@ -8,6 +8,19 @@ namespace Pokemon
 {
     public class Pokemon
     {
-        public string Name { get; set; }    
+        public string Name { get; set; }
+
+        public Pokemon(string name)
+        {
+            Name = name;
+        }
+
+
+        public string StartPokemon()
+        {
+            Console.WriteLine("Enter StartPokemon name: ");
+            string name = Console.ReadLine();
+            return name;
+        }
     }
 }

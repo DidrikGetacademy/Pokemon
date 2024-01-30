@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-   public class HealthPotions
+   public class HealthPotions : ShopItem
     {
         public string Name { get; set; }
 
         public int Health { get; set; } 
 
-        public HealthPotions(string name, int health)
+        public HealthPotions(string name, int health) : base(name)
         {
             Name = name;
             Health = health;
         }
 
-        public HealthPotions()
-        {
-
-        }
+    
 
         public HealthPotions createItem(string name, int health)
         {

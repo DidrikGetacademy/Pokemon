@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace Pokemon
 {
-    public class Pokeballs
+    public class Pokeballs : ShopItem
     {
         public string Name { get; set; }
 
         public int RandomCapturePercent { get; set; }
-        public Pokeballs(string name, int RandomCapture)
+        public Pokeballs(string name, int RandomCapture) : base(name)
         {
             Name = name;
             RandomCapturePercent = RandomCapture;
         }
 
-        public Pokeballs()
-        {
-
-        }
+      
 
         public Pokeballs CreateItem(string name, int random)
         {

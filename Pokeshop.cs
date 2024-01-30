@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Pokemon
 {
-    public class Pokeshop
+    public class Pokeshop 
     {
      public List<Pokeballs> ShopPokeball { get; set; }
 
@@ -18,14 +20,14 @@ namespace Pokemon
 
      private HealthPotions healthPotions { get; set; }
 
-
-        public Pokeshop()
+       
+        public Pokeshop() : base()
         {
             ShopPokeball = new List<Pokeballs>();
             ShopHealthPotions = new List<HealthPotions>();  
             random = new Random();
-            pokeballClass = new Pokeballs();
-            healthPotions = new HealthPotions();
+            pokeballClass = new Pokeballs(" ", 0);
+            healthPotions = new HealthPotions(" ", 0);
         }
 
   
@@ -59,6 +61,62 @@ namespace Pokemon
             HealthPotionList();
         }
 
+
+        public ShopItem ShopDisplay()
+        {
+            ShopInventory();
+            Console.WriteLine("Choose Item too buy");
+            Console.WriteLine("1.-Pokeballs");
+            Console.WriteLine("2.-Health Potion");
+            int SelectedItem = Convert.ToInt32(Console.ReadLine());
+
+            switch (SelectedItem)
+            {
+
+                case 1:
+                    if (ShopPokeball.Any())
+                    {
+                        var pokeball = ShopPokeball.First();
+                        ShopPokeball.Remove(pokeball);
+                        return new Pokeballs("Pokeballs",pokeball.RandomCapturePercent);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tom på lager.");
+                        return null;
+                    }
+
+
+                case 2:
+                    if (ShopHealthPotions.Any())
+                    {
+                        Console.WriteLine("Write Health Number of potion you buy [25],[50],[75]");
+                        int healthNumber = Convert.ToInt32(Console.ReadLine());
+                        var healthPotionitem = ShopHealthPotions.Find(x => x.Health == healthNumber);
+
+                        if (healthPotionitem != null)
+                        {
+                            ShopHealthPotions.Remove(healthPotionitem);
+                            return new HealthPotions("Health Potion", healthNumber);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Tom på lager.");
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Out of stock");
+                        return null;
+                    }
+
+                default:
+                    Console.WriteLine("Wrong Choice");
+                    return ShopDisplay();
+            }
+        }
+
         void PokeballsList()
         {
             var PokeList = ShopPokeball.FirstOrDefault(x => x.Name == "Pokeball");
@@ -80,12 +138,3 @@ namespace Pokemon
     }
 }
 
-
-
-//Pokemon
-//Appen du skal lage må ha en pokemontrener. Brukeren skal få velge navn og startpokemon.
-//Treneren skal ha mulighet til å gå i forskjellig terreng (grass, vann) der vilkårlige pokemen
-//kan dukke opp. Man kan fange eller kjempe mot de ville pokemenna som dukker opp (det
-//kan hende de også stikker av). Treneren kan også gå inn i pokeshop for å skaffe seg flere
-//pokeballer eller health potions som kan brukes i combat. Man skal ha mulighet til å se hvilke
-//pokemen treneren har, og også annen inventory som pokeballer/potions.
