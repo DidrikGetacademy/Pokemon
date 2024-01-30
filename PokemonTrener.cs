@@ -20,6 +20,7 @@ namespace Pokemon
 
         private List<HealthPotions> potionsItems { get; set; }
 
+        private BattleArena arena { get; set; }
         public Pokeshop shop { get; set; }
 
         Pokemon Pokemon { get; set; }
@@ -31,6 +32,7 @@ namespace Pokemon
             Pokemon = new Pokemon(" ");
             pokeballsItems = new List<Pokeballs>();
             potionsItems = new List<HealthPotions>();
+            arena = new BattleArena(this);
         }
     
 
@@ -77,19 +79,6 @@ namespace Pokemon
             }
         }
 
-
-        void GoToGrass()
-        {
-            // vilkårlige pokemen kan dukke opp, man kan fange eller kjempe mot de ville pokemenna som dukker opp
-            // kan hende de også stikker av
-        }
- 
-
-        void gotowater()
-        {
-     
-        }
-
         public void buyItem(ShopItem item, HealthPotions potion)
         {
 
@@ -110,10 +99,6 @@ namespace Pokemon
                 }
             }
         }
-        
-
-
-
 
         public void EnterPokeShop()
         {
@@ -123,20 +108,15 @@ namespace Pokemon
                 HealthPotions potion = item as HealthPotions;
                 buyItem(item,potion);
             }
-           
         }
-
-
 
         public void potionPokeballsInventory()
         {
             printPokeballs();
             printHealthPotions();
-
-
         }
 
-   void printPokeballs()
+         void printPokeballs()
         {
             var pokeballCount = pokeballsItems.Count;
             if(pokeballCount > 0)
@@ -151,13 +131,11 @@ namespace Pokemon
             {
                 Console.WriteLine("Du er tom for [Pokeballs]!!");
             }
-       
         }
 
 
         void printHealthPotions()
         {
-            
             var healthPotionCount = potionsItems.Count;
             if (healthPotionCount > 0)
             {
@@ -166,14 +144,78 @@ namespace Pokemon
                 {
                     Console.WriteLine($"-{potion.Name}[{potion.Health}]");
                 }
-            }else
+            }
+            else
             {
                 Console.WriteLine("Du er tom for [Health Potions]!!");
             }
      
         }
+
+
+
+
+
+
+        public void Battle()
+        {
+            Console.WriteLine("1.Enter Grass");
+            Console.WriteLine("2.Enter Water ");
+            int input = Convert.ToInt32(Console.ReadLine());
+            switch (input)
+            {
+                case 1:
+                    arena.grass();
+                    break;
+                case 2:
+                    arena.Water();
+                    break;
+            }
+        }
+
+
+
+        public void Catch() 
+        {
+          
+           
+            if (pokeballsItems.Count > 0)
+            {
+                Pokeballs pokeball = pokeballsItems[0];
+                Random rand = new Random();
+                int catchPercentage = rand.Next(0,10);
+                if(catchPercentage >= pokeball.RandomCapturePercent)
+                {
+                    pokeballsItems.RemoveAt(0);
+                    Pokemon caughtPokemon = arena.CaughtPokemon();
+                    Console.WriteLine($"Velykket! Du catchet {caughtPokemon.Name}");
+                    pokemons.Add(caughtPokemon);
+                }else 
+                {
+                    Console.WriteLine("Pokemon left, nice try! ");
+                }
+            }
+                else if(pokeballsItems.Count <= 0)
+            {
+                Console.WriteLine("Du har ingen Pokeballs tilgjengelig. Kjøp noen fra butikken!");
+                }
+            
+        }
+
+        public void Fight()
+        {
+         
+            //kjempe mot de ville pokemenna som dukker opp
+        }
+
+        void useHealthpotion()
+        {
+            //health potion skal heale pokemon til  pokemontreneren
+        }
+
+        void attackdamage()
+        {
+            //damage mot pokemon fiende i battlearena
+        }
     }
 }
-
-
-

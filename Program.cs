@@ -19,6 +19,8 @@ namespace Pokemon
                 Console.WriteLine("1.Your Details");
                 Console.WriteLine("2.Enter Pokeshop");
                 Console.WriteLine("3.Inventory pokeballs/Potions");
+                Console.WriteLine("4.Battle in water/grass");
+                Console.WriteLine("5.Exit Game");
                 var Input = Console.ReadLine();
                 switch (Input)
                 {
@@ -36,6 +38,14 @@ namespace Pokemon
                         Trainer.potionPokeballsInventory();
                         break;
 
+                        case "4":
+                        Trainer.Battle();
+                        break;
+
+                    case "5":
+                        Environment.Exit(0);
+                        break;
+
 
                 }
             }
@@ -43,8 +53,3 @@ namespace Pokemon
     }
 }
 
-//Treneren skal ha mulighet til å gå i forskjellig terreng (grass, vann) der vilkårlige pokemen
-//kan dukke opp. Man kan fange eller kjempe mot de ville pokemenna som dukker opp (det
-//kan hende de også stikker av). Treneren kan også gå inn i pokeshop for å skaffe seg flere
-//pokeballer eller health potions som kan brukes i combat. Man skal ha mulighet til å se hvilke
-//pokemen treneren har, og også annen inventory som pokeballer/potions.
