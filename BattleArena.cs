@@ -46,8 +46,9 @@ namespace Pokemon
         public void Water()
         {
             Console.WriteLine("You have entered Water Arena");
+            Console.WriteLine();
             Console.WriteLine("[Press any key to start game]");
-            Console.ReadLine();
+            Console.ReadKey();
             var randompokemon = random.Next(0,WaterPokemons.Count);
             var pokemon = WaterPokemons[randompokemon];
             Console.WriteLine($"Pokemon Found: {pokemon.Name}");
@@ -75,12 +76,13 @@ namespace Pokemon
         public void grass()
         {
             Console.WriteLine("You have entered Grass Arena");
+            Console.WriteLine();
             Console.WriteLine("[Press any key to start game]");
             var grassgame = Console.ReadLine();
             var randompokemon = random.Next(0, grassPokemons.Count);
             var pokemon = grassPokemons[randompokemon];
             caughtPokemon = pokemon;
-            Console.WriteLine($"Pokemon Found {pokemon.Name}");
+            Console.WriteLine($"[Pokemon Found {pokemon.Name}]");
             ArenaMenu();
         }
 
@@ -112,7 +114,7 @@ namespace Pokemon
             int Userpokemondamage = Userpokemon.damage();
             while (EnemyHealth != 0 && UserpokemonHealth != 0)
             {
-
+                Console.WriteLine();
                 Console.WriteLine($"Name: {Userpokemon.Name}  Health: {UserpokemonHealth}  ");
                 Console.WriteLine($"Name: {EnemyFigther.Name} Health: {EnemyHealth}");
                 Console.WriteLine("Press: (x) too hit Enemy");

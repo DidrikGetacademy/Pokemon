@@ -65,6 +65,7 @@ namespace Pokemon
         public ShopItem ShopDisplay()
         {
             ShopInventory();
+            Console.WriteLine();
             Console.WriteLine("Choose Item too buy");
             Console.WriteLine("1.-Pokeballs");
             Console.WriteLine("2.-Health Potion");

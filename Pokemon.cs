@@ -28,7 +28,7 @@ namespace Pokemon
 
         public string StartPokemon()
         {
-            Console.WriteLine("Enter StartPokemon name: ");
+            Console.WriteLine("Enter Start Pokemon name: ");
             string name = Console.ReadLine();
             return name;
         }

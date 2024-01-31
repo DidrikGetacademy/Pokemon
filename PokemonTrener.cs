@@ -67,7 +67,8 @@ namespace Pokemon
         {
             PokemonTrainerInfo();
             Console.WriteLine($"Welcome Trainer: " + Name);
-            PokemonInventory();
+            Console.WriteLine();
+           
         }
 
        public void CharacterDetails()
@@ -79,10 +80,10 @@ namespace Pokemon
 
       public  void PokemonInventory()
         {
-            Console.WriteLine("[Pokemon inventory]");
+           
             foreach (var pokemon in pokemons)
             {
-                Console.WriteLine($"Pokemon: {pokemon.Name}");
+                Console.WriteLine($"-Pokemon: {pokemon.Name}");
             }
         }
 
@@ -130,7 +131,7 @@ namespace Pokemon
             var pokeballCount = pokeballsItems.Count;
             if(pokeballCount > 0)
             {
-                Console.WriteLine($"Antall pokeballs:({pokeballCount}) ");
+                Console.WriteLine($"Count: pokeballs:({pokeballCount}) ");
                 foreach (var pokeball in pokeballsItems)
                 {
                     Console.WriteLine($"-{pokeball.Name}");
@@ -138,7 +139,7 @@ namespace Pokemon
                 Console.WriteLine();
             }else
             {
-                Console.WriteLine("Du er tom for [Pokeballs]!!");
+                Console.WriteLine("you have 0 [Pokeballs]!");
             }
         }
 
@@ -148,7 +149,7 @@ namespace Pokemon
             var healthPotionCount = potionsItems.Count;
             if (healthPotionCount > 0)
             {
-                Console.WriteLine($"Antall HealthPotions: ({healthPotionCount})");
+                Console.WriteLine($"Count: HealthPotions: ({healthPotionCount})");
                 foreach (var potion in potionsItems)
                 {
                     Console.WriteLine($"-{potion.Name}[{potion.Health}]");
@@ -156,7 +157,7 @@ namespace Pokemon
             }
             else
             {
-                Console.WriteLine("Du er tom for [Health Potions]!!");
+                Console.WriteLine("you have 0 [Health Potions]!!");
             }
      
         }
