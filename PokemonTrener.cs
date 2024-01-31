@@ -14,7 +14,7 @@ namespace Pokemon
     {
         private string Name { get; set; }
 
-        private List<Pokemon> pokemons { get; set; }
+        public List<Pokemon> pokemons { get; set; }
 
         private List<Pokeballs> pokeballsItems { get; set; }
 
@@ -29,7 +29,7 @@ namespace Pokemon
             pokemons = new List<Pokemon>();
             Name = name;
             shop = new Pokeshop();
-            Pokemon = new Pokemon(" ");
+            Pokemon = new Pokemon("");
             pokeballsItems = new List<Pokeballs>();
             potionsItems = new List<HealthPotions>();
             arena = new BattleArena(this);
@@ -42,6 +42,13 @@ namespace Pokemon
             string name = Console.ReadLine();
             return  name;
         }
+
+       public string TrainerName()
+        {
+            return Name;
+        }
+
+      
 
          void NewPokemon()
         {
@@ -65,19 +72,21 @@ namespace Pokemon
 
        public void CharacterDetails()
         {
-            Console.WriteLine("Character Details");
+            Console.WriteLine("[Character Details]");
             Console.WriteLine($"Trainer: {Name}");
             PokemonInventory();
         }
 
-        void PokemonInventory()
+      public  void PokemonInventory()
         {
-            Console.WriteLine("Your [Pokemon] inventory");
+            Console.WriteLine("[Pokemon inventory]");
             foreach (var pokemon in pokemons)
             {
                 Console.WriteLine($"Pokemon: {pokemon.Name}");
             }
         }
+
+ 
 
         public void buyItem(ShopItem item, HealthPotions potion)
         {
@@ -204,8 +213,9 @@ namespace Pokemon
 
         public void Fight()
         {
-         
-            //kjempe mot de ville pokemenna som dukker opp
+            
+            arena.UpdateBattleInfo();
+          
         }
 
         void useHealthpotion()
@@ -213,9 +223,9 @@ namespace Pokemon
             //health potion skal heale pokemon til  pokemontreneren
         }
 
-        void attackdamage()
-        {
-            //damage mot pokemon fiende i battlearena
-        }
+
+    
+           
+        
     }
 }

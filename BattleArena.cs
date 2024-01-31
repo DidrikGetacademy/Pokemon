@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Pokemon
 {
@@ -87,8 +88,52 @@ namespace Pokemon
         public Pokemon CaughtPokemon()
         {
             Pokemon result = caughtPokemon;
-            caughtPokemon = null;
             return result;
+        }
+
+      public string UserChoosenInput()
+        {
+            Console.WriteLine("Choose Pokemon too fight with ");
+            var ChoosenPokemon = Console.ReadLine();
+            return ChoosenPokemon;
+        }
+
+
+
+        public void UpdateBattleInfo()
+        {
+            var EnemyFigther = CaughtPokemon();
+            int EnemyHealth = EnemyFigther.health();
+            int enemydamage = EnemyFigther.damage();
+            trainer.PokemonInventory();
+            var ChoosenPokemon = UserChoosenInput();
+            var Userpokemon = trainer.pokemons.Find(x => x.Name == ChoosenPokemon);
+            int UserpokemonHealth = Userpokemon.health();
+            int Userpokemondamage = Userpokemon.damage();
+            while (EnemyHealth != 0 && UserpokemonHealth != 0)
+            {
+
+                Console.WriteLine($"Name: {Userpokemon.Name}  Health: {UserpokemonHealth}  ");
+                Console.WriteLine($"Name: {EnemyFigther.Name} Health: {EnemyHealth}");
+                Console.WriteLine("Press: (x) too hit Enemy");
+                string input = Console.ReadLine();
+                if (input == "x")
+                {
+                    Console.WriteLine($"{Userpokemon} Attacked with [{Userpokemondamage}]");
+                    EnemyHealth -= Userpokemondamage;
+         
+                }
+                else
+                {
+                    Console.WriteLine("Wrong input");
+                }
+                if (input != null)
+                {
+                    UserpokemonHealth -= enemydamage;
+                    Console.WriteLine($"{EnemyFigther.Name} Attacked with [{enemydamage}]");
+                }
+
+            }
         }
     }
 }
@@ -117,12 +162,7 @@ namespace Pokemon
 
 
 
-
-
-
-
-
-
+//hus oppgaven
 
 
 
