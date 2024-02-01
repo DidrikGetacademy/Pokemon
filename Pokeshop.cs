@@ -41,7 +41,7 @@ namespace Pokemon
 
         void addHealthPotionToList()
         {
-            ShopHealthPotions.Add(healthPotions.createItem("Health Potion", 25));
+            ShopHealthPotions.Add(healthPotions.createItem("Health Potion",25));
             ShopHealthPotions.Add(healthPotions.createItem("Health Potion", 25));
             ShopHealthPotions.Add(healthPotions.createItem("Health Potion", 50));
             ShopHealthPotions.Add(healthPotions.createItem("Health Potion", 50));

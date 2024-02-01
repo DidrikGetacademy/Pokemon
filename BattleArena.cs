@@ -18,6 +18,8 @@ namespace Pokemon
 
 
         private PokemonTrener trainer;
+
+        private Random rand = new Random();
         public BattleArena(PokemonTrener trener)
         {
             this.trainer = trener;
@@ -93,48 +95,140 @@ namespace Pokemon
             return result;
         }
 
+
+
       public string UserChoosenInput()
         {
             Console.WriteLine("Choose Pokemon too fight with ");
             var ChoosenPokemon = Console.ReadLine();
-            return ChoosenPokemon;
+            if (trainer.pokemons.Any(x=> x.Name == ChoosenPokemon))
+            {
+                return ChoosenPokemon;
+            }
+           else
+            {
+                Console.WriteLine("You don't have that pokemon");
+                return UserChoosenInput();
+            }
         }
 
 
+        
 
         public void UpdateBattleInfo()
         {
             var EnemyFigther = CaughtPokemon();
             int EnemyHealth = EnemyFigther.health();
-            int enemydamage = EnemyFigther.damage();
+           
             trainer.PokemonInventory();
             var ChoosenPokemon = UserChoosenInput();
             var Userpokemon = trainer.pokemons.Find(x => x.Name == ChoosenPokemon);
-            int UserpokemonHealth = Userpokemon.health();
-            int Userpokemondamage = Userpokemon.damage();
-            while (EnemyHealth != 0 && UserpokemonHealth != 0)
+            int UserpokemonHealth = Userpokemon.health();          
+            int PotionCount = trainer.pokeballHealth();
+            string trainername = trainer.TrainerName();
+            bool Turn = true;
+
+            while (!Winner())
             {
+                int Userpokemondamage = rand.Next(0,45);
+                int enemydamage = rand.Next(0, 70);
                 Console.WriteLine();
                 Console.WriteLine($"Name: {Userpokemon.Name}  Health: {UserpokemonHealth}  ");
                 Console.WriteLine($"Name: {EnemyFigther.Name} Health: {EnemyHealth}");
                 Console.WriteLine("Press: (x) too hit Enemy");
+                Console.WriteLine("Press: (h) too Heal Pokemon");
                 string input = Console.ReadLine();
-                if (input == "x")
+
+              
+                if (input == "x" && Turn)
                 {
-                    Console.WriteLine($"{Userpokemon} Attacked with [{Userpokemondamage}]");
+                    Console.WriteLine($"{Userpokemon.Name} Attacked with [{Userpokemondamage}]");
                     EnemyHealth -= Userpokemondamage;
-         
+                    Turn = false;
                 }
+                
+
+             else  if(input == "h" && UserpokemonHealth <= 100 && Potioncount())
+                {
+
+                    trainer.printHealthPotions();
+                    Console.WriteLine("Choose potion too use");
+                    int choosenHealth = Convert.ToInt32(Console.ReadLine());
+
+                  var selectedpotion = trainer.potionsItems.FirstOrDefault(x => x.Health == choosenHealth);
+            
+
+                    if(selectedpotion != null && UserpokemonHealth <= 100)
+                    {
+                        UserpokemonHealth +=  selectedpotion.Health;
+                        Console.WriteLine($"{trainername} healed {Userpokemon.Name} with {selectedpotion.Health}");
+                        trainer.potionsItems.Remove(selectedpotion);
+                        Turn = false;
+                    }else
+                    {
+                        Console.WriteLine("you don't have this potion in stock, or you already have enough Health");
+                    }
+                }
+                
+
+             else  if(input == "h" && !Potioncount()) 
+                {
+                    Console.WriteLine($"you have {PotionCount} HealPotions");
+                    Turn = true;
+                }
+                
+                
+
                 else
                 {
-                    Console.WriteLine("Wrong input");
+                    Console.WriteLine("Wrong Input");
+                    Turn = true;
                 }
-                if (input != null)
+              
+
+
+                if (Turn == false)
                 {
                     UserpokemonHealth -= enemydamage;
                     Console.WriteLine($"{EnemyFigther.Name} Attacked with [{enemydamage}]");
+                    Turn = true;
                 }
 
+
+
+                if (Winner())
+                {
+                    WinnerStatus();
+                }
+            }
+
+
+
+            void WinnerStatus()
+            {
+                if (UserpokemonHealth < 0)
+                {
+                    Console.WriteLine($"{Userpokemon.Name} wins the game!");    
+                } else
+                {
+                    Console.WriteLine($"{EnemyFigther.Name} wins the game!");
+                }
+            }
+
+
+
+
+            bool Potioncount()
+            {
+                return PotionCount >= 1;
+            }
+
+
+
+
+            bool Winner()
+            { 
+              return EnemyHealth <= 0 || UserpokemonHealth <= 0; 
             }
         }
     }
@@ -164,11 +258,4 @@ namespace Pokemon
 
 
 
-//hus oppgaven
 
-
-
-//Liste av 5 personer
-///Du skal lage en konsollapp som lager en liste over 5 personer med navn,
-//adresse og alder og printer ut informasjonen til de som er over 30 år.
-//La så brukeren kunne legge til en person til slik at funksjonaliteten fremdeles virker som før./

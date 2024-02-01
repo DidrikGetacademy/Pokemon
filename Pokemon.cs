@@ -12,15 +12,12 @@ namespace Pokemon
 
         private int Health { get; set; }
 
-        private int Damage { get; set; }
-
-        private  Random rand = new Random();
 
         public Pokemon(string name)
         {
             Name = name;
             Health = 100;
-            Damage = rand.Next(0, 50);
+     
         }
 
     
@@ -43,10 +40,7 @@ namespace Pokemon
             return Health;
         }
 
-        public int damage()
-        {
-            return Damage;
-        }
+     
 
      
 

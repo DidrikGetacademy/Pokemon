@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.ComponentModel.Design;
 
 namespace Pokemon
 {
@@ -18,10 +19,12 @@ namespace Pokemon
 
         private List<Pokeballs> pokeballsItems { get; set; }
 
-        private List<HealthPotions> potionsItems { get; set; }
+        public List<HealthPotions> potionsItems { get; set; }
 
         private BattleArena arena { get; set; }
         public Pokeshop shop { get; set; }
+
+    
 
         Pokemon Pokemon { get; set; }
         public PokemonTrener(string name)
@@ -35,6 +38,12 @@ namespace Pokemon
             arena = new BattleArena(this);
         }
     
+        public int pokeballHealth()
+        {
+            var result = potionsItems.Count;
+            return result;
+        }
+
 
          string ChooseTrainerName()
         {
@@ -47,6 +56,7 @@ namespace Pokemon
         {
             return Name;
         }
+
 
       
 
@@ -99,13 +109,13 @@ namespace Pokemon
                 if (item.ItemName == "Pokeballs")
                 {
                     pokeballsItems.Add(new Pokeballs(item.ItemName, RandomCapture));
-                    Console.WriteLine($"Du har kjøpt: -{item.ItemName}");
+                    Console.WriteLine($"you bought: -{item.ItemName}");
                 }
 
                 if (potion != null)
                 {
                     potionsItems.Add(new HealthPotions(potion.Name, potion.Health));
-                    Console.WriteLine($"Du har kjøpt: -{potion.Name} [{potion.Health}]");
+                    Console.WriteLine($"you bought: -{potion.Name} [{potion.Health}]");
                 }
             }
         }
@@ -126,7 +136,7 @@ namespace Pokemon
             printHealthPotions();
         }
 
-         void printPokeballs()
+      public void printPokeballs()
         {
             var pokeballCount = pokeballsItems.Count;
             if(pokeballCount > 0)
@@ -144,7 +154,7 @@ namespace Pokemon
         }
 
 
-        void printHealthPotions()
+       public void printHealthPotions()
         {
             var healthPotionCount = potionsItems.Count;
             if (healthPotionCount > 0)
@@ -171,15 +181,16 @@ namespace Pokemon
         {
             Console.WriteLine("1.Enter Grass");
             Console.WriteLine("2.Enter Water ");
-            int input = Convert.ToInt32(Console.ReadLine());
+            var input = Console.ReadLine();
             switch (input)
             {
-                case 1:
+                case "1":
                     arena.grass();
                     break;
-                case 2:
+                case "2":
                     arena.Water();
                     break;
+               default: Console.WriteLine("Wrong Input"); break;
             }
         }
 
@@ -198,7 +209,7 @@ namespace Pokemon
                 {
                     pokeballsItems.RemoveAt(0);
                     Pokemon caughtPokemon = arena.CaughtPokemon();
-                    Console.WriteLine($"Velykket! Du catchet {caughtPokemon.Name}");
+                    Console.WriteLine($"Nice! you caught {caughtPokemon.Name}");
                     pokemons.Add(caughtPokemon);
                 }else 
                 {
@@ -207,7 +218,7 @@ namespace Pokemon
             }
                 else if(pokeballsItems.Count <= 0)
             {
-                Console.WriteLine("Du har ingen Pokeballs tilgjengelig. Kjøp noen fra butikken!");
+                Console.WriteLine("no avaiable pokeballs. enter pokeshop too buy one!");
                 }
             
         }
@@ -219,14 +230,6 @@ namespace Pokemon
           
         }
 
-        void useHealthpotion()
-        {
-            //health potion skal heale pokemon til  pokemontreneren
-        }
-
-
-    
-           
-        
+   
     }
 }
