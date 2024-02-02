@@ -150,12 +150,10 @@ namespace Pokemon
 
              else  if(input == "h" && UserpokemonHealth <= 100 && Potioncount())
                 {
-
                     trainer.printHealthPotions();
                     Console.WriteLine("Choose potion too use");
                     int choosenHealth = Convert.ToInt32(Console.ReadLine());
-
-                  var selectedpotion = trainer.potionsItems.FirstOrDefault(x => x.Health == choosenHealth);
+                    var selectedpotion = trainer.potionsItems.FirstOrDefault(x => x.Health == choosenHealth);
             
 
                     if(selectedpotion != null && UserpokemonHealth <= 100)
@@ -171,15 +169,11 @@ namespace Pokemon
                 }
                 
 
-             else  if(input == "h" && !Potioncount()) 
+               else if(input == "h" && !Potioncount()) 
                 {
                     Console.WriteLine($"you have {PotionCount} HealPotions");
                     Turn = true;
-                }
-                
-                
-
-                else
+                }else
                 {
                     Console.WriteLine("Wrong Input");
                     Turn = true;
@@ -217,13 +211,10 @@ namespace Pokemon
 
 
 
-
             bool Potioncount()
             {
                 return PotionCount >= 1;
             }
-
-
 
 
             bool Winner()
